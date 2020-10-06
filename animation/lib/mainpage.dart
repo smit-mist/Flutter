@@ -41,7 +41,7 @@ class MainPage extends StatelessWidget {
               ),
               First(),
               VultureImage(),
-              Appbar(),
+             // Appbar(),
               ShareButton(),
               PageIndicator(),
               Detail(),
@@ -52,6 +52,7 @@ class MainPage extends StatelessWidget {
               EndTime(),
               Distance(),
               Dots(),
+              MapButton(),
             ],
           ),
         ),
@@ -63,13 +64,10 @@ class MainPage extends StatelessWidget {
 class Second extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container();
-    return Center(
-      child: Image.asset(
-        'assets/vulture.png',
-        height: MediaQuery.of(context).size.height / 3,
-      ),
+    return Container(
+      child: Center(child: CircleAn()),
     );
+    
   }
 }
 
@@ -216,7 +214,7 @@ class Distance extends StatelessWidget {
       }
       return Positioned(
         bottom: 77,
-        right: -23 + MediaQuery.of(context).size.width / 2,
+        right: -30 + MediaQuery.of(context).size.width / 2,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Opacity(
@@ -250,7 +248,7 @@ class EndCamp extends StatelessWidget {
       }
       return Positioned(
         bottom: 110,
-        right: -50 + 0.3 * here,
+        right: -70 + 0.3 * here,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Opacity(
@@ -281,7 +279,7 @@ class EndTime extends StatelessWidget {
       }
       return Positioned(
         bottom: 80,
-        right: -50 + 0.3 * here,
+        right: -70 + 0.3 * here,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Opacity(
@@ -301,43 +299,121 @@ class Dots extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<PageOffset>(builder: (context, notifier, child) {
+      double curr = 0;
+      double here = 0;
+      if (notifier.page != null) {
+        curr = notifier.page;
+      }
+      if (notifier.offset != null) {
+        here = notifier.offset;
+      }
+      double opacity = max(0.00, 4 * curr - 3);
       return Positioned(
         bottom: 113,
         right: 0,
-        left:-10,
-              child: Stack(
+        left: 0,
+        child: Opacity(
+          opacity: opacity,
+          child: Stack(
+            alignment: Alignment.center,
             children: [
               Container(
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.white,
-        ),
-        height: 6,
+                margin: EdgeInsets.only(left: opacity * 40.00),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white,
+                ),
+                height: 8,
               ),
               Container(
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.white,
-        ),
-        height: 4,
+                margin: EdgeInsets.only(left: opacity * 10.00),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.grey,
+                ),
+                height: 4,
               ),
               Container(
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.white,
-        ),
-        height: 4,
+                margin: EdgeInsets.only(right: opacity * 10.00),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.grey,
+                ),
+                height: 4,
               ),
               Container(
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.white,
-        ),
-        height: 6,
+                margin: EdgeInsets.only(right: opacity * 40.00),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.grey,
+                  //border: Border.all(color:Colors.white),
+                ),
+                height: 8,
               ),
             ],
           ),
+        ),
       );
     });
+  }
+}
+
+class MapButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      left: 0,
+      bottom: 15,
+      child: Consumer<PageOffset>(
+        builder: (context, notifier, child) {
+          double curr = 0;
+          double here = 0;
+          if (notifier.page != null) {
+            curr = notifier.page;
+          }
+          if (notifier.offset != null) {
+            here = notifier.offset;
+          }
+          double opacity = max(0.00, 4 * curr - 3);
+          return Opacity(
+            opacity: opacity,
+            child: child,
+          );
+        },
+        child: FlatButton(
+          onPressed: () {},
+          child: Text(
+            'Map',
+            style: TextStyle(color: Colors.grey),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CircleAn extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<PageOffset>(
+      builder: (context, notifier, child) {
+        double curr = 0;
+        double here = 0;
+        if (notifier.page != null) {
+          curr = notifier.page;
+        }
+        if (notifier.offset != null) {
+          here = notifier.offset;
+        }
+        double opacity = max(0.00, 4 * curr - 3);
+        return Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.grey,
+          ),
+          width: (MediaQuery.of(context).size.width) * (opacity)*0.6+20,
+        );
+      },
+    );
   }
 }
