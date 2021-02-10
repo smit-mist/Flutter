@@ -49,7 +49,7 @@ class First extends StatelessWidget {
           child: child,
         );
       },
-      child: IgnorePointer(child: Image.asset('assets/leopard.png')),
+      child: IgnorePointer(child: Image.asset('assets/pageview_animation/leopard.png')),
     );
   }
 }

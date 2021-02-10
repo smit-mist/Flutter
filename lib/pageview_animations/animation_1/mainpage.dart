@@ -194,7 +194,7 @@ class VultureImage extends StatelessWidget {
           child: child,
         );
       },
-      child: Image.asset('assets/vulture.png'),
+      child: Image.asset('assets/pageview_animation/vulture.png'),
     );
   }
 }
